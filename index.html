@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script type="text/javascript" src="js/replay_parse.js"> </script>
+    <title></title>
+</head>
+<body>
+<input type="file" name="" id="file" value=""/>
+<script type="text/javascript">
+    var input = document.getElementById("file"); //input file
+    input.onchange = function () {
+        var file = this.files[0];//获取文件
+        if (!!file) {
+            //读取本地文件
+            var reader = new FileReader();
+            reader.readAsArrayBuffer(file);//ArrayBuffer对象
+            reader.onload = function (e) {
+                //读取完毕后输出结果
+                console.log(e.target.result);
+				ReplayParser(e.target.result);
+            }
+        }
+    }
+</script>
+</body>
+</html>
