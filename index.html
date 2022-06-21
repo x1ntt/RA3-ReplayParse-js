@@ -19,8 +19,23 @@
             reader.readAsArrayBuffer(file);//ArrayBuffer对象
             reader.onload = function (e) {
                 //读取完毕后输出结果
-                console.log(e.target.result);
-				ReplayParser(e.target.result);
+                <!-- console.log(e.target.result); -->
+				
+				// 传入一个 ArrayBuffer对象
+				var rp = new ReplayParser(e.target.result);
+				
+				// 成功后的对象
+				rp.OnSuccess = function(replay_info) {
+					console.log(replay_info);
+				}
+				
+				// 会传回来错误原因 (目前还没有实际实现)
+				rp.OnFail = function(error_msg) {
+					console.log("解析失败: " + error_msg);
+				}
+				
+				// 实际开始执行解析
+				rp.Parse();
             }
         }
     }
