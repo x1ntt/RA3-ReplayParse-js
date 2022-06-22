@@ -1,6 +1,9 @@
 
+// By · x1nt
+// https://github.com/x1ntt/RA3-ReplayParse-js
+// 2022.06.22
+
 class ReplayParser{
-	
 	// 传入文件对象实现解析，返回ReplayInfo对象
 	constructor(ab){
 		this._MAGIC_NUM = 17;
@@ -49,27 +52,6 @@ class ReplayParser{
 			case "B": return "冷酷";
 			default: return "未知战力("+c+")";
 		}
-	}
-
-	getCharFromUtf8(str) {
-		var cstr = "";
-		var nOffset = 0;
-		if (str == "")
-			return "";
-		str = str.toLowerCase();
-		nOffset = str.indexOf("%e");
-		if (nOffset == -1)
-			return str;
-		while (nOffset != -1) {
-			cstr += str.substr(0, nOffset);
-			str = str.substr(nOffset, str.length - nOffset);
-			if (str == "" || str.length < 9)
-				return cstr;
-			cstr += utf8ToChar(str.substr(0, 9));
-			str = str.substr(9, str.length - 9);
-			nOffset = str.indexOf("%e");
-		}
-		return cstr + str;
 	}
 
 	revertUTF8(szInput) {
@@ -216,7 +198,6 @@ class ReplayParser{
 		header["players"] = players;
 		this._pos += len;
 	}
-
 	
 	Parse()
 	{
@@ -229,6 +210,7 @@ class ReplayParser{
 		replay_info["strMagic"] = this.ReadStr(this._ab, this._MAGIC_NUM);	// 固定头	
 		console.log(replay_info["strMagic"]);
 		if (replay_info["strMagic"] != "RA3 REPLAY HEADER"){
+			this.OnFail("这不是一个正常的录像文件");
 			return -1;
 		}
 		
