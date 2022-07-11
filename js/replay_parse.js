@@ -204,7 +204,10 @@ class ReplayParser{
 		this._pos = 0;
 		var replay_info = {};
 		if (this._ab.byteLength == 0)
+		{
+			this.OnFail("没有载入录像文件");
 			return ;
+		}
 		
 		const dv = new DataView(this._ab);
 		replay_info["strMagic"] = this.ReadStr(this._ab, this._MAGIC_NUM);	// 固定头	
