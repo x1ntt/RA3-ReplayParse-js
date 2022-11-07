@@ -37,6 +37,7 @@ class ReplayParser{
 					case "2": return "帝国";
 					case "3": return "Commentator";
 					case "4": return "盟军";
+					case "7": return "随机";
 					case "8": return "苏联";
 					default: return "未知("+i+")";
 				}
@@ -159,10 +160,41 @@ class ReplayParser{
 		return ret;
 	}
 
+	ascii2utf8(asciiText) {
+            var i, c, c2, c3, string;
+            i = c = c2 = c3 = 0;
+            string = "";
+
+            while (i < asciiText.length) {
+
+                c = asciiText.charCodeAt(i);
+
+                if (c < 128) {
+                    string += String.fromCharCode(c);
+                    i++;
+
+                } else if ((c > 191) && (c < 224)) {
+                    c2 = asciiText.charCodeAt(i + 1);
+                    string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+                    i += 2;
+
+                } else {
+                    c2 = asciiText.charCodeAt(i + 1);
+                    c3 = asciiText.charCodeAt(i + 2);
+                    string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+                    i += 3;
+                }
+
+            }
+
+            return string;
+        }
+
 	// ReadHeader(ab, replay_info["header_len"], replay_info, header);
 	ReadHeader(ab, len, header){
 		var newab = ab.slice(this._pos, this._pos + len);
 		var raw = new TextDecoder('ascii', {fatal: true}).decode(newab);
+		
 		header["raw"] = raw;
 		var flags = raw.split(";");
 		for (var flag of flags){
@@ -180,12 +212,12 @@ class ReplayParser{
 			if (infos[0][0] == "H"){			// 是玩家
 				var name = infos[0].slice(1);
 				player["isPlayer"] = true;
-				player["playerName"] = this.revertUTF8(name);
+				player["playerName"] = this.ascii2utf8(name);
 				player["faction"] = this.int2Faction(infos[5]);
 			}else if (infos[0][0] == "C"){
 				var name = infos[0].slice(1);
 				player["isPlayer"] = false;
-				player["playerName"] = this.char2Difficulty(this.revertUTF8(name));
+				player["playerName"] = name;
 				player["faction"] = this.int2Faction(infos[2]);
 			}else{
 				continue;

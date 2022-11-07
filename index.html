@@ -10,6 +10,7 @@
 <body>
 <input type="file" name="" id="file" value=""/>
 <script type="text/javascript">
+
     var input = document.getElementById("file"); //input file
     input.onchange = function () {
         var file = this.files[0];//获取文件
@@ -27,6 +28,16 @@
 				// 成功后的对象
 				rp.OnSuccess = function(replay_info) {
 					console.log(replay_info);
+					var full_players = replay_info.header.players;
+					var players = replay_info.players;
+					
+					
+					for (var k in full_players){
+						console.log(full_players[k].playerName);
+					}
+					
+					console.log(full_players);
+					console.log(players);
 				}
 				
 				// 会传回来错误原因 (目前还没有实际实现)
