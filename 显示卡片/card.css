@@ -1,0 +1,106 @@
+table.replay_card{
+	border: 1px solid #dee2e6;
+	/*border-spacing: 0;*/
+	/*border-collapse:collapse;*/
+	border-collapse:2px;
+	text-align: center;
+}
+
+table.replay_card td{
+	border: 1px solid #dee2e6;
+}
+
+.replay_card_map{
+	background: #FFF;
+}
+
+.replay_country_flag{
+	min-height: 38px;
+}
+
+.replay_download{
+	min-width: 100px;
+	background: #5b728b;
+	color: #FFF;
+}
+
+.replay_map{
+	width: 130px;
+}
+
+.replay_map_name{
+	background: #958f4b;
+	color: #FFF;
+}
+
+.replay_time_long{
+	background: #958f4b;
+	color: #FFF;
+}
+
+
+.replay_radius{
+	border-radius:5px;
+}
+
+.replay_player_name{
+	min-width: 184px;
+	color: #FFF;
+}
+
+/* 阵营色 */
+.replay_camp_color_red{
+	background: #d36060;
+	background: #b76f6f;
+}
+
+.replay_camp_color_blue{
+	background: #3775d3;
+	background: #607eab;
+}
+
+.replay_camp_color_green{
+	background: #49c949;
+	background: #6caf6c;
+}
+
+.replay_camp_color_yellow{
+	background: #d1d34e;
+	background: #bcbd74;
+}
+
+.replay_camp_color_purple{
+	background: #8f60cd;
+	background: #977db9;
+}
+
+.replay_camp_color_azure{
+	background: #4edee5;
+	background: #8acccf;
+}
+
+/* 国家色 */
+.replay_card_country_red {
+	background: rgb(230, 20, 20);
+}
+.replay_card_country_gray {			/*green*/
+	background: rgb(20, 105, 60);
+}
+.replay_card_country_blue {
+	background: #324BC8;
+}
+.replay_card_country_yellow {
+	background: rgb(240, 215, 25);
+}
+.replay_card_country_orange {
+	background: rgb(225, 115, 20);
+}
+.replay_card_country_purple {
+	background: rgb(125, 25, 200);
+}
+.replay_card_country_azure {
+	background: rgb(102, 207, 248);
+}
+.replay_card_country_cyan {
+	background: rgb(102, 207, 248);
+}
