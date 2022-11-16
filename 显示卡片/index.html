@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script data-main="src/configs" src="src/libs/require.js"></script>
+</head>
+<link rel="stylesheet" type="text/css" href="card.css">
+<body>
+<input type="file" id="files" name="files[]" multiple/> 
+<button onclick="click2();">测试</button>
+</body>
+
+<script>
+function fid2img(fid){
+	switch(fid){
+		case "1":
+		case "3": return "./imgs/flag_c.png";
+		case "2": return "./imgs/flag_e.png";
+		case "4": return "./imgs/flag_a.png";
+		case "7": return "./imgs/flag_r.png";
+		case "8": return "./imgs/flag_s.png";
+		default:
+			return "./imgs/flag_0.png";
+	}
+}
+
+function color2class(cstr){
+	return "replay_card_country_" + cstr.toLowerCase()
+}
+
+function compare(obj1, obj2) {
+    var val1 = obj1.team;
+    var val2 = obj2.team;
+    if (val1 < val2) {
+        return -1;
+    } else if (val1 > val2) {
+        return 1;
+    } else {
+        return 0;
+    }            
+}
+
+function team2class(team){
+	switch(team){
+		case "0": return "replay_camp_color_green";
+		case "1": return "replay_camp_color_blue";
+		case "2": return "replay_camp_color_red";
+		case "3": return "replay_camp_color_yellow";
+		case "4": return "replay_camp_color_purple";
+		case "5": return "replay_camp_color_azure";
+		default: return "replay_camp_color_gray";
+	}
+}
+
+function playerHtml(p){
+	var target = "";
+	if (p){
+		var str1 = "<td class=\" " + p.color +" replay_radius\">&nbsp</td>";
+		var str2 = "<td class=\"replay_country_flag\"><img class=\"replay_radius\" src=\""+ p.faction +"\" /></td>";
+		var str3 = "<td class=\"replay_player_name replay_radius " + team2class(p.team+"") + "\">" + p.name + "</td>";
+		
+		target += str1;
+		target += str2;
+		target += str3;
+	}else{
+		target += "<td class=\"replay_radius\"></td><td class=\"replay_radius\" style=\"height:25px;\"></td><td class=\"replay_radius\"></td>";
+	}
+	return target;
+}
+
+window.insertReplayTable = function(replay){
+	var target = "<table cellspacing=8 border=\"1\" class=\"replay_card\">"
+	console.log(replay);
+	var players = replay.players;
+	var arr = []
+	
+	for (var i=0;i<players.length;i++){
+		var p = {};
+		console.log(players[i]);
+		p.team = players[i].team;
+		p.faction = fid2img(players[i].faction.id + "");
+		p.name = players[i].name;
+		p.color = color2class(players[i].color);
+		arr.push(p);
+	}
+	
+	console.log(arr);
+	console.log(arr.sort(compare));
+	arr = arr.sort(compare);
+	
+	for (var i=0;i<6;i++){
+		target += "<tr>";
+		
+		if (i == 0){
+			target += "<td rowspan=\"4\" class=\"replay_card_map replay_radius \"><img src=\""
+			target += "./imgs/maps/map_mp_2_feasel1.png"
+			target += " \" class=\"replay_map replay_radius\"/></td>"
+		}
+		
+		if (i == 4){
+			target += "<td class=\"replay_radius replay_map_name\">" + replay.map.name + "</td>";
+		}
+		
+		if (i == 5){
+			target += "<td class=\"replay_radius replay_time_long\"> " + replay.length + " </td>";
+		}
+		
+		if (i < arr.length)
+			target += playerHtml(arr[i]);
+		else 
+			target += playerHtml(false);
+		
+		if (i == 0){
+			target += "<td rowspan=\"6\" class=\"replay_download replay_radius\">下载<br/>0.86MB</td>";
+		}
+		
+		target += "</tr>";
+	}
+	target += "</table>"
+	
+	console.log(target);
+	
+	document.body.innerHTML += target;
+}
+
+function click2(){
+	
+	
+	// document.body.innerHTML += target;
+}
+</script>
+</html>

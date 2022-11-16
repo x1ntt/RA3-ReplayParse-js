@@ -79,6 +79,17 @@ table.replay_card td{
 	background: #8acccf;
 }
 
+.replay_camp_color_cyan{
+	background: #4edee5;
+	background: #8acccf;
+}
+
+/*解说 评论者专用色*/
+.replay_camp_color_gray{
+	background: #4edee5;
+	background: #CCCCCC;
+}
+
 /* 国家色 */
 .replay_card_country_red {
 	background: rgb(230, 20, 20);
@@ -99,7 +110,7 @@ table.replay_card td{
 	background: rgb(125, 25, 200);
 }
 .replay_card_country_azure {
-	background: rgb(102, 207, 248);
+	background: rgb(200, 200, 200);
 }
 .replay_card_country_cyan {
 	background: rgb(102, 207, 248);
